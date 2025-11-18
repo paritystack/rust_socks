@@ -30,61 +30,81 @@ A comprehensive, high-performance SOCKS5 implementation in Rust providing both s
   - Selective command enabling
   - Custom authentication handlers
 
-- **Production-Ready Applications**
-  - `socks-server` - Full-featured SOCKS5 proxy server with config files
-  - `socks-client` - CLI tool for testing and making proxied connections
-  - `socks-forward` - Port forwarding through SOCKS5 proxies
+- **Unified CLI Application**
+  - Single `socks5` binary with subcommands for server, client, and forwarding
+  - Easy to install and deploy
+  - Backwards-compatible individual binaries also available
 
-## Applications
+## CLI Application
 
-This library includes three production-ready command-line applications. See [APPLICATIONS.md](APPLICATIONS.md) for detailed documentation.
+This library includes a comprehensive command-line application `socks5` that provides server, client, and port forwarding functionality in a single binary. See [APPLICATIONS.md](APPLICATIONS.md) for detailed documentation.
 
-### socks-server
-
-A full-featured SOCKS5 proxy server with TOML configuration support.
+### Quick Start
 
 ```bash
-# Generate configuration
-cargo run --bin socks-server generate-config --output my-config.toml
+# Build the unified binary
+cargo build --release --bin socks5
 
-# Start server with config
-cargo run --bin socks-server start --config my-config.toml
-
-# Quick start with no auth
-cargo run --bin socks-server start --no-auth
+# Or install it
+cargo install --path . --bin socks5
 ```
 
-### socks-client
+### Server
 
-CLI tool for making requests through SOCKS5 proxies.
+Start a SOCKS5 proxy server with configuration file support.
 
 ```bash
-# Make HTTP request
-cargo run --bin socks-client -- \
-  --target example.com \
-  --port 80 \
-  --http
+# Generate default config
+socks5 server generate-config --output my-config.toml
+
+# Start with config
+socks5 server start --config my-config.toml
+
+# Quick start with no authentication
+socks5 server start --no-auth
+
+# Start with custom bind address
+socks5 server start --bind 0.0.0.0:1080 --no-auth
+```
+
+### Client
+
+Make connections through a SOCKS5 proxy.
+
+```bash
+# HTTP request
+socks5 client --target example.com --port 80 --http
 
 # With authentication
-cargo run --bin socks-client -- \
+socks5 client \
   --target example.com \
-  --port 80 \
+  --port 443 \
   --http \
   --username admin \
   --password secret
+
+# Test connection only
+socks5 client --target google.com --port 443 --test-only
 ```
 
-### socks-forward
+### Port Forwarding
 
 Forward local ports to remote destinations through SOCKS5.
 
 ```bash
-# Forward local port 8080 to remote server
-cargo run --bin socks-forward -- \
+# Forward local port to remote server
+socks5 forward \
   --local 127.0.0.1:8080 \
   --remote api.example.com \
-  --port 443 \
-  --proxy 127.0.0.1:1080
+  --port 443
+
+# With authentication
+socks5 forward \
+  --local 127.0.0.1:5432 \
+  --remote db.internal \
+  --port 5432 \
+  --username admin \
+  --password secret
 ```
 
 ## Installation

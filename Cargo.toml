@@ -40,6 +40,12 @@ path = "examples/client.rs"
 name = "proxy_chain"
 path = "examples/proxy_chain.rs"
 
+# Main unified binary
+[[bin]]
+name = "socks5"
+path = "src/bin/socks5.rs"
+
+# Individual binaries (for backwards compatibility)
 [[bin]]
 name = "socks-server"
 path = "src/bin/server.rs"

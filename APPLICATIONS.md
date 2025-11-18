@@ -2,7 +2,90 @@
 
 This document describes the command-line applications included with the Rust SOCKS5 library.
 
-## Applications
+## Unified Application: socks5
+
+**Recommended:** Use the unified `socks5` binary which combines all functionality in one convenient tool.
+
+### Installation
+
+```bash
+# Build the unified binary
+cargo build --release --bin socks5
+
+# Install to your system
+cargo install --path . --bin socks5
+
+# The binary will be available as: socks5
+```
+
+### Usage
+
+The `socks5` binary has three main subcommands:
+
+#### Server
+
+```bash
+# Generate config
+socks5 server generate-config --output my-config.toml
+
+# Start server
+socks5 server start --config my-config.toml
+
+# Quick start (no auth)
+socks5 server start --no-auth
+
+# Validate config
+socks5 server validate my-config.toml
+```
+
+#### Client
+
+```bash
+# HTTP request
+socks5 client --target example.com --port 80 --http
+
+# With authentication
+socks5 client \
+  --target example.com \
+  --port 80 \
+  --http \
+  --username admin \
+  --password secret
+
+# Test connection
+socks5 client --target google.com --port 443 --test-only
+```
+
+#### Forward
+
+```bash
+# Forward local port to remote
+socks5 forward \
+  --local 127.0.0.1:8080 \
+  --remote api.example.com \
+  --port 443
+
+# With authentication
+socks5 forward \
+  --local 0.0.0.0:3306 \
+  --remote db.internal \
+  --port 3306 \
+  --username dbuser \
+  --password dbpass
+```
+
+### Why Use the Unified Binary?
+
+- **Single tool**: One binary for all SOCKS5 operations
+- **Easier deployment**: Just copy one executable
+- **Consistent interface**: All features accessible through subcommands
+- **Smaller footprint**: Share code between components
+
+---
+
+## Individual Applications (Legacy)
+
+For backwards compatibility, individual binaries are also available.
 
 ### 1. socks-server - SOCKS5 Proxy Server
 
