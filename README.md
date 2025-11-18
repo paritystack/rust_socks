@@ -30,6 +30,63 @@ A comprehensive, high-performance SOCKS5 implementation in Rust providing both s
   - Selective command enabling
   - Custom authentication handlers
 
+- **Production-Ready Applications**
+  - `socks-server` - Full-featured SOCKS5 proxy server with config files
+  - `socks-client` - CLI tool for testing and making proxied connections
+  - `socks-forward` - Port forwarding through SOCKS5 proxies
+
+## Applications
+
+This library includes three production-ready command-line applications. See [APPLICATIONS.md](APPLICATIONS.md) for detailed documentation.
+
+### socks-server
+
+A full-featured SOCKS5 proxy server with TOML configuration support.
+
+```bash
+# Generate configuration
+cargo run --bin socks-server generate-config --output my-config.toml
+
+# Start server with config
+cargo run --bin socks-server start --config my-config.toml
+
+# Quick start with no auth
+cargo run --bin socks-server start --no-auth
+```
+
+### socks-client
+
+CLI tool for making requests through SOCKS5 proxies.
+
+```bash
+# Make HTTP request
+cargo run --bin socks-client -- \
+  --target example.com \
+  --port 80 \
+  --http
+
+# With authentication
+cargo run --bin socks-client -- \
+  --target example.com \
+  --port 80 \
+  --http \
+  --username admin \
+  --password secret
+```
+
+### socks-forward
+
+Forward local ports to remote destinations through SOCKS5.
+
+```bash
+# Forward local port 8080 to remote server
+cargo run --bin socks-forward -- \
+  --local 127.0.0.1:8080 \
+  --remote api.example.com \
+  --port 443 \
+  --proxy 127.0.0.1:1080
+```
+
 ## Installation
 
 Add this to your `Cargo.toml`:
