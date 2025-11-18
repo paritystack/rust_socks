@@ -1,0 +1,36 @@
+# SOCKS5 Server Configuration - Production Example
+# This is a recommended configuration for production deployments
+
+[server]
+# Bind to all interfaces for production
+# IMPORTANT: Ensure proper firewall rules are in place
+bind_addr = "0.0.0.0:1080"
+
+# For production, you might want to disable BIND and UDP for security
+# Only enable the features you actually need
+enable_connect = true
+enable_bind = false      # Disabled for security
+enable_udp = false       # Disabled for security
+
+# Shorter timeout for production to free up resources
+timeout_secs = 180
+
+[auth]
+# Always use authentication in production
+mode = "password"
+
+# Production users
+# IMPORTANT: Change these default passwords!
+# Consider using environment variables or a secrets management system
+[auth.users]
+prod_user1 = "change_this_password"
+prod_user2 = "change_this_password_too"
+
+[logging]
+# Warning level for production to reduce log volume
+# Change to "info" or "debug" for troubleshooting
+level = "warn"
+
+# JSON logging is recommended for production
+# Easier to parse with log aggregation tools (ELK, Splunk, etc.)
+json = true

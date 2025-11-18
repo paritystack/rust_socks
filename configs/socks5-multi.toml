@@ -1,0 +1,33 @@
+# SOCKS5 Server Configuration - Multiple Authentication Methods
+# This configuration supports both no-auth and username/password authentication
+# Clients can choose either method
+
+[server]
+# Address and port to bind the server to
+bind_addr = "127.0.0.1:1080"
+
+# Enable all commands
+enable_connect = true
+enable_bind = true
+enable_udp = true
+
+# Connection timeout
+timeout_secs = 300
+
+[auth]
+# "multi" mode allows both no-auth and password authentication
+# Useful for compatibility with various clients
+mode = "multi"
+
+# Users for password authentication
+# Clients without credentials can still connect using no-auth
+[auth.users]
+admin = "secure_password_123"
+premium_user = "premium_pass"
+
+[logging]
+# More verbose logging for development/debugging
+level = "debug"
+
+# Standard text logging
+json = false

@@ -1,0 +1,33 @@
+# SOCKS5 Server Configuration - With Authentication
+# This configuration requires username/password authentication
+
+[server]
+# Address and port to bind the server to
+bind_addr = "127.0.0.1:1080"
+
+# Enable or disable specific SOCKS5 commands
+enable_connect = true
+enable_bind = true
+enable_udp = true
+
+# Connection timeout in seconds
+timeout_secs = 300
+
+[auth]
+# Authentication mode: "password" requires username/password
+mode = "password"
+
+# Define username/password pairs
+# Add or remove users as needed
+[auth.users]
+admin = "admin123"
+alice = "alicepass"
+bob = "bobsecret"
+testuser = "testpass"
+
+[logging]
+# Log level
+level = "info"
+
+# JSON logging
+json = false

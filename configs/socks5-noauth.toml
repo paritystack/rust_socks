@@ -1,0 +1,30 @@
+# SOCKS5 Server Configuration - No Authentication
+# This configuration file sets up a SOCKS5 proxy server without authentication
+
+[server]
+# Address and port to bind the server to
+# Use 0.0.0.0 to listen on all interfaces, or 127.0.0.1 for localhost only
+bind_addr = "127.0.0.1:1080"
+
+# Enable or disable specific SOCKS5 commands
+enable_connect = true       # CONNECT - for TCP connections (most common)
+enable_bind = true          # BIND - for accepting incoming connections
+enable_udp = true           # UDP ASSOCIATE - for UDP relay
+
+# Connection timeout in seconds
+# Idle connections will be closed after this duration
+timeout_secs = 300
+
+[auth]
+# Authentication mode: "none", "password", or "multi"
+mode = "none"
+
+# Username/password pairs (not used when mode = "none")
+[auth.users]
+
+[logging]
+# Log level: "trace", "debug", "info", "warn", "error"
+level = "info"
+
+# Enable JSON formatted logging (useful for log aggregation)
+json = false
